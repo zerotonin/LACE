@@ -92,7 +92,7 @@ trace = [headP yawBody];
 if length(pix2mm) ==1,
     trace(:,1:2) = trace(:,1:2).*pix2mm;
 else
-    trace(:,1:2) = fliplr(ivT_pix2mm(pix2mm(:,:,1),pix2mm(:,:,2),trace(:,[1 2])));
+    trace(:,1:2) = fliplr(ivT_pix2mm(pix2mm(:,:,1),pix2mm(:,:,2),trace(:,[2 1])));
 end
 
 [B,A] = butter(butterDeg,butterCo);

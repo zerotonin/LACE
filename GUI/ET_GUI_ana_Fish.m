@@ -22,7 +22,7 @@ function varargout = ET_GUI_ana_Fish(varargin)
 
 % Edit the above text to modify the response to help ET_GUI_ana_Fish
 
-% Last Modified by GUIDE v2.5 18-Feb-2020 15:44:33
+% Last Modified by GUIDE v2.5 01-Nov-2021 16:19:34
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -703,7 +703,15 @@ end
 minQual = cellfun(@(x) min(x(:,12)),traceResult(:,1));
 autoCorr = cellfun(@(x) max(x(:,13)),traceResult(:,1));
 velocities = [median(abs(trace(startF:lastF-1,4:6)));max(abs(trace(startF:lastF-1,4:6)))];
-bendability2 = FMA_BA_getBendebility(traceResult(:,3),pix2mm);
+
+if length(pix2mm) == 1
+    pix2mmScalar = pix2mm;
+else
+    vecNorms = sqrt(sum(diff(pix2mm,1).^2,2));
+    pix2mmScalar = geomean(rdivide(vecNorms(:,:,2),vecNorms(:,:,1)));
+end
+
+bendability2 = FMA_BA_getBendebility(traceResult(:,3),pix2mmScalar);
 bendability2 = cellfun(@(x) [x(:,1)-min(x(:,1)) x(:,2)],bendability2,'UniformOutput',false );
 bendability2 = cellfun(@(x) [x(:,1)./max(x(:,1)) x(:,2)],bendability2,'UniformOutput',false );
 bendability = repmat({NaN(10,2)},size(bendability2));
@@ -1089,4 +1097,3 @@ end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% NEW FUNCTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-

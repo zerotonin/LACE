@@ -25,20 +25,25 @@
 % see also FILA_ana_getSpine
 
 
-
-minD = NaN(size(centralLine,1),1);
-
-for i =1:size(centralLine,1),
-    minD(i) = min(sum(abs(bsxfun(@minus,objectContour,centralLine(i,:))),2));
-end
-
-terminal1 = sum(minD(1:3));
-terminal2 = sum(minD(end-2:end));
-
-if terminal1 > terminal2,
-    headPosition = centralLine(1,:);
-    tailPosition = centralLine(end,:);
+if length(centralLine) < 4
+    tailPosition = NaN;
+    headPosition = NaN;
 else
-    headPosition = centralLine(end,:);
-    tailPosition = centralLine(1,:);
+    
+    minD = NaN(size(centralLine,1),1);
+
+    for i =1:size(centralLine,1),
+        minD(i) = min(sum(abs(bsxfun(@minus,objectContour,centralLine(i,:))),2));
+    end
+
+    terminal1 = sum(minD(1:3));
+    terminal2 = sum(minD(end-2:end));
+
+    if terminal1 > terminal2,
+        headPosition = centralLine(1,:);
+        tailPosition = centralLine(end,:);
+    else
+        headPosition = centralLine(end,:);
+        tailPosition = centralLine(1,:);
+    end
 end
