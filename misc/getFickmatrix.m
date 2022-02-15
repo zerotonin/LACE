@@ -11,7 +11,7 @@ function rot_mat = getFickmatrix(y,p,r,modus)
 %
 % Author: B. Geurten
 %
-% see also calcRotAxisFromFickAngles
+% see also calcRotAxisFromFickAngles,getFickMatrix2D
 
 if strcmp(modus, 'p'),
     rot_mat =[cos(y)*cos(p)     cos(y)*sin(p)*sin(r)-sin(y)*cos(r)      cos(y)*sin(p)*cos(r)+sin(y)*sin(r);...
