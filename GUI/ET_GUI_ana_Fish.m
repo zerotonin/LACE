@@ -459,6 +459,8 @@ function pb_reanalyse_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
         analyseTraceResult(hObject, eventdata, handles);
         refreshPlots(hObject, eventdata, handles);
+        updateSlider(hObject, eventdata, handles);
+        
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% SUB ROUTINES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
