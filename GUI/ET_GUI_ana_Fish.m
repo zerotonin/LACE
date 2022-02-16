@@ -689,8 +689,8 @@ pix2mm = getappdata(handles.output,'pix2mm');
 [saccs, ~] = get_saccades(trace(startF:lastF,6),saccThresh);
 if ~isempty(saccs),
     saccs(:,1:3)=saccs(:,1:3)+startF-1;
-    trigAveL = triggeredAverage([rad2deg(trace(:,3)),trace(:,6)],saccs(saccs(:,4) == 1,2),fps/4,[],10);
-    trigAveR = triggeredAverage([rad2deg(trace(:,3)),trace(:,6)],saccs(saccs(:,4) == -1,2),fps/4,[],10);
+    trigAveL = triggeredAverage([rad2deg(trace(:,3)),trace(:,6)],saccs(saccs(:,4) == 1,2),ceil(fps/4),[],10);
+    trigAveR = triggeredAverage([rad2deg(trace(:,3)),trace(:,6)],saccs(saccs(:,4) == -1,2),ceil(fps/4),[]),10);
     taSacc = cat(4,trigAveL,trigAveR);
     saccI = arrayfun(@(start,stop) start:stop,saccs(:,1),saccs(:,3),'UniformOutput',false);
     saccI =cell2mat(saccI');
