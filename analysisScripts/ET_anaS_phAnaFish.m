@@ -87,7 +87,7 @@ yawBody = unwrap(yawBody)-pi;
 % yawHead = atan2(yawVec(:,2),yawVec(:,1));
 % yawHead = unwrap(yawHead)-pi;
 
-% filter trace
+%pixel 2 mm conversion
 trace = [headP yawBody];
 if length(pix2mm) ==1,
     trace(:,1:2) = trace(:,1:2).*pix2mm;
@@ -95,6 +95,9 @@ else
     trace(:,1:2) = fliplr(ivT_pix2mm(pix2mm(:,:,1),pix2mm(:,:,2),trace(:,[2 1])));
 end
 
+
+
+% filter trace
 [B,A] = butter(butterDeg,butterCo);
 trace = filtfilt(B,A,trace);
 

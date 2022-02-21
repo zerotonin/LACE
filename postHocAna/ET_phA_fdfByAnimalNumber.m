@@ -46,3 +46,4 @@ foundAnimals = cellfun(@(x) size(x,1),traceResult);
 % find those that are not identical to the expectation
 tooMany = find(foundAnimals > expectedAnimals);
 tooFew = find(foundAnimals < expectedAnimals);
+

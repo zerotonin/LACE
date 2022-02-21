@@ -34,19 +34,36 @@ if isempty(mmBox),
     disp('                       3-----2')
     disp('                       |     |')
     disp('                       4-----1')
-   
+    
     mmBox = TMP_SR_getCMBox;
-
+    
 end
 
-%preallocate variable 
+%preallocate variable
 mmTRA = NaN(size(pixTRA,1),size(pixTRA,2),size(pixTRA,3));
 
 
 % interpolate x values
 F = TriScatteredInterp(pixBox(:,1), pixBox(:,2), mmBox(:,1)); % built interpolation object for x - real world
 mmTRA(:,1,:)= F(pixTRA(:,1,:),pixTRA(:,2,:)); % interpolate with pixel positions
+% interpolate
+mmTRA(:,1,:) = linInterp(mmTRA(:,1,:));
+
 
 %interpolate y values
 F = TriScatteredInterp(pixBox(:,1), pixBox(:,2), mmBox(:,2)); % built interpolation object for y - real world
 mmTRA(:,2,:)= F(pixTRA(:,1,:),pixTRA(:,2,:)); % interpolate with pixel positions
+% interpolate
+mmTRA(:,2,:) = linInterp(mmTRA(:,2,:));
+end
+
+function coord2 = linInterp(coord)
+v        = ~isnan(coord);
+G        = griddedInterpolant(find(v), coord(v), 'previous');
+idx      = find(~v);
+bp       = G(idx);
+G.Method = 'next';
+bn       = G(idx);
+coord2   = coord;
+coord2(idx)   = (bp + bn) / 2;
+end

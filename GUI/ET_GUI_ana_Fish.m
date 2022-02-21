@@ -460,7 +460,6 @@ function pb_reanalyse_Callback(hObject, eventdata, handles)
         analyseTraceResult(hObject, eventdata, handles);
         refreshPlots(hObject, eventdata, handles);
         updateSlider(hObject, eventdata, handles);
-        
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% SUB ROUTINES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
