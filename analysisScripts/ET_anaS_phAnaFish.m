@@ -25,6 +25,10 @@ if ~isempty(tooFew),
     
 end
 
+cellLen = cellfun(@length,traceResult(:,4));
+traceResult(cellLen == 1,4) = {[NaN, NaN]};
+traceResult(cellLen == 1,5) = {[NaN, NaN]};
+
 % extract matrices
 headP = cell2mat(traceResult(:,4));
 tailP =cell2mat(traceResult(:,5));
@@ -95,6 +99,11 @@ else
     trace(:,1:2) = fliplr(ivT_pix2mm(pix2mm(:,:,1),pix2mm(:,:,2),trace(:,[2 1])));
 end
 
+% interpolate
+trace(:,1,:) = linInterp(trace(:,1,:));
+trace(:,2,:) = linInterp(trace(:,2,:));
+trace(:,3,:) = linInterp(trace(:,3,:));
+
 
 
 % filter trace
@@ -108,5 +117,17 @@ ts_speed = fliplr(ET_phA_calcAnimalSpeed2D(trace));
 trace  = [trace [ts_speed [diff(rad2deg(trace(:,3))) ; NaN]].*fps];
 % mm/s -> m/s
 trace(:,4:5) = trace(:,4:5)./1000;
+
+end
+function coord2 = linInterp(coord)
+v        = ~isnan(coord);
+G        = griddedInterpolant(find(v), coord(v), 'previous');
+idx      = find(~v);
+bp       = G(idx);
+G.Method = 'next';
+bn       = G(idx);
+coord2   = coord;
+coord2(idx)   = (bp + bn) / 2;
+end
 
 
