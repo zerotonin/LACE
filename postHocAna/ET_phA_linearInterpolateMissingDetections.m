@@ -104,7 +104,8 @@ end
 
 nanHeadList = find(cellfun(@(x) any(isnan(x)),headP,'UniformOutput',true));
 nanTailList = find(cellfun(@(x) any(isnan(x)),tailP,'UniformOutput',true));
-tooFew = unique([tooFew;nanHeadList;nanTailList]);
+infList = find(cellfun(@any,cellfun(@(x) any(isinf(x)),traceResult,'UniformOutput',false)));
+tooFew = unique([tooFew;nanHeadList;nanTailList;infList]);
 
 % get the beginning and ends of  the missing sequences
 [start,stop]=getSeqStartsEnds(tooFew,1);
@@ -146,6 +147,9 @@ if ~isempty(stop),
             distMat=Hungarian_getDistMat(coord1,coordTF,'euclidean');
             match = lapjv(distMat');
             missingAnimals = setdiff(1:expectedAnimals,match);
+            if isempty(missingAnimals)% headP or tailP are NaN
+                missingAnimals= 1;
+            end
         end
         %number of frames to be interpolated
         interpSteps = nextDet(i)-lastDet(i)-1;
