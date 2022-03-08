@@ -102,6 +102,9 @@ else
     spline = [];
 end
 
+nanHeadList = find(cellfun(@(x) any(isnan(x)),headP,'UniformOutput',true));
+nanTailList = find(cellfun(@(x) any(isnan(x)),tailP,'UniformOutput',true));
+tooFew = unique([tooFew;nanHeadList;nanTailList]);
 
 % get the beginning and ends of  the missing sequences
 [start,stop]=getSeqStartsEnds(tooFew,1);
