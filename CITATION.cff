@@ -1,0 +1,64 @@
+cff-version: 1.2.0
+message: "If you use LACE, please cite the article below (preferred-citation)."
+title: "LACE - Limbless Animal traCkEr"
+abstract: >-
+  LACE (Limbless Animal traCkEr) is a marker-free pose estimator that
+  builds an animal's pose de novo from its contour. It detects the
+  contour, derives the body mid-line, and constructs a pseudo-skeleton
+  of vertices and edges, enabling quantification of position, pose and
+  movement patterns in animals without limbs (e.g. larval Drosophila
+  and adult zebrafish).
+type: software
+version: "1.0.0"
+license: GPL-3.0-or-later
+repository-code: "https://github.com/zerotonin/LACE"
+url: "https://github.com/zerotonin/LACE"
+keywords:
+  - pose estimation
+  - animal tracking
+  - markerless tracking
+  - behavioural analysis
+  - MATLAB
+  - Drosophila
+  - zebrafish
+authors:
+  - family-names: Garg
+    given-names: Vranda
+  - family-names: André
+    given-names: Selina
+  - family-names: Giraldo
+    given-names: Diego
+  - family-names: Heyer
+    given-names: Luisa
+  - family-names: Göpfert
+    given-names: "Martin C."
+  - family-names: Dosch
+    given-names: Roland
+  - family-names: Geurten
+    given-names: "Bart R. H."
+    orcid: "https://orcid.org/0000-0002-1816-3241"
+preferred-citation:
+  type: article
+  title: "A markerless pose estimator applicable to limbless animals"
+  authors:
+    - family-names: Garg
+      given-names: Vranda
+    - family-names: André
+      given-names: Selina
+    - family-names: Giraldo
+      given-names: Diego
+    - family-names: Heyer
+      given-names: Luisa
+    - family-names: Göpfert
+      given-names: "Martin C."
+    - family-names: Dosch
+      given-names: Roland
+    - family-names: Geurten
+      given-names: "Bart R. H."
+      orcid: "https://orcid.org/0000-0002-1816-3241"
+  journal: "Frontiers in Behavioral Neuroscience"
+  year: 2022
+  volume: 16
+  article-number: 819146
+  doi: "10.3389/fnbeh.2022.819146"
+  url: "https://www.frontiersin.org/articles/10.3389/fnbeh.2022.819146/full"
