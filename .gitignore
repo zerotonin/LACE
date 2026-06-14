@@ -1,2 +1,15 @@
+# MATLAB editor / autosave artefacts
 *.m~
+*.asv
+slprj/
+
+# Build / CI outputs
+release/
+*.mltbx
+test-results/
+code-coverage/
+
+# OS cruft
+.DS_Store
 .DS_STORE
+Thumbs.db
