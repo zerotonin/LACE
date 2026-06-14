@@ -13,14 +13,13 @@ function plan = buildfile
 % Build plan for the LACE toolbox.  See banner above for tasks.
 plan = buildplan(localfunctions);
 
-% Static analysis over the whole source tree.  Advisory for now: the
-% legacy code carries a pre-existing baseline of analyzer issues, so
-% both thresholds are Inf (report, never fail) and the full report is
-% written to code-issues/results.sarif for triage.  Tighten
-% ErrorThreshold to 0 once the baseline errors are cleared.
+% Static analysis over the whole source tree.  Errors gate the build
+% (the legacy baseline of 9 analyzer errors has been cleared); the
+% ~900 legacy warnings remain advisory until triaged.  The full report
+% is written to code-issues/results.sarif on every run.
 plan("check") = matlab.buildtool.tasks.CodeIssuesTask( ...
     ".", ...
-    WarningThreshold = Inf, ErrorThreshold = Inf, ...
+    WarningThreshold = Inf, ErrorThreshold = 0, ...
     Results = "code-issues/results.sarif");
 
 % Unit tests (the tests/ folder is the home for future test classes).
