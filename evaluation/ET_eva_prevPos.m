@@ -36,10 +36,7 @@ currentDetection = cell2mat(cellfun(@(x) x(1,1:2),ellipseFits,'UniformOutput',fa
 distMat = Hungarian_getDistMat(prevDetection,currentDetection,'euclidean');
 % now make a linear matching using the faster 
 assingment = lapjv(distMat);
-if length(prevDetection) < length(currentDetection),
-    prevPosVote = zeros(length(ellipseFits),1); 
-    prevPosVote(assingment) =1;
-else
-    prevPosVote = zeros(length(ellipseFits),1);
-    prevPosVote(assingment) = 1;
-end
+% both branches scored identically, so the length comparison had no
+% effect; vote the assigned detections regardless of cardinality
+prevPosVote = zeros(length(ellipseFits),1);
+prevPosVote(assingment) = 1;

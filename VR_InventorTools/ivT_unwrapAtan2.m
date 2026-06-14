@@ -34,11 +34,9 @@ atanJumps = sortrows([locsPos+1 ones(length(locsPos),1); locsNeg+1 ones(length(l
 count = 0;
 while ~isempty(atanJumps),
     for i =1:size(atanJumps,1)
-        if atanJumps(i,2) == 1,
-            angle(atanJumps(i,1):end) = angle(atanJumps(i,1):end) + (angle(atanJumps(i,1)-1) - angle(atanJumps(i,1)));
-        else
-            angle(atanJumps(i,1):end) = angle(atanJumps(i,1):end) + (angle(atanJumps(i,1)-1) - angle(atanJumps(i,1)));
-        end
+        % both jump directions are corrected identically: shift the tail
+        % so it continues smoothly from the sample before the jump
+        angle(atanJumps(i,1):end) = angle(atanJumps(i,1):end) + (angle(atanJumps(i,1)-1) - angle(atanJumps(i,1)));
     end
     
     dangle = diff(angle);
