@@ -32,12 +32,13 @@ jobs:
         with:
           tasks: check test
 
-      - name: Upload test results
+      - name: Upload test and code-issues reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-${{ matrix.os }}
+          name: reports-${{ matrix.os }}
           path: |
             test-results/
             code-coverage/
+            code-issues/
           if-no-files-found: ignore
