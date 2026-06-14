@@ -8,6 +8,7 @@ release/
 *.mltbx
 test-results/
 code-coverage/
+code-issues/
 
 # OS cruft
 .DS_Store
