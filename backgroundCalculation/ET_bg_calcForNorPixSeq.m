@@ -96,13 +96,8 @@ if progBar,
         waitbar(frameNumber / frames2analyse)
     end
     % sound alarm
-    try
-        s =wavread('smw_1-up.wav');
-        sound(s,22000);
-    catch
-        [y, Fs] = audioread('smw_1-up.wav');
-        soundsc(y,Fs);
-    end
+    [y, Fs] = audioread('smw_1-up.wav');
+    soundsc(y, Fs);
 else
     % main loop
     for frameNumber =1:frames2analyse,
