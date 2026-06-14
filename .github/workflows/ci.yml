@@ -1,0 +1,43 @@
+name: CI
+
+# Run the MATLAB build (static analysis + tests) on every push and PR.
+# Public repos get a MathWorks-hosted licence on GitHub runners, so no
+# token or self-hosted runner is required.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2024b
+
+      - name: Run build (check + test)
+        uses: matlab-actions/run-build@v3
+        with:
+          tasks: check test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}
+          path: |
+            test-results/
+            code-coverage/
+          if-no-files-found: ignore

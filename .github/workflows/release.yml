@@ -1,0 +1,35 @@
+name: Release
+
+# On a version tag, build the toolbox and attach LACE.mltbx to a
+# GitHub Release.  A File Exchange entry linked to this repo will pick
+# the release up automatically.
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2024b
+
+      - name: Build, test, and package toolbox
+        uses: matlab-actions/run-build@v3
+        with:
+          tasks: check test toolbox
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/LACE.mltbx
+          generate_release_notes: true
